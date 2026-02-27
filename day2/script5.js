@@ -1,4 +1,4 @@
-arr = [" 10 ","20", "30",", ","40"]
+let arr = [" 10 ","20", "30",", ","40"]
 cleanedarr = arr.map(n => Number(n.trim()));
 console.log(cleanedarr);
 

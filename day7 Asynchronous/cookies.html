@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cookie Practice</title>
+</head>
+<body>
+
+  <h2>Cookie Name Reminder</h2>
+
+  <input type="text" id="nameInput" placeholder="Enter your name">
+  <button onclick="saveName()">Save</button>
+  <button onclick="clearName()">Clear</button>
+
+  <p id="message"></p>
+
+  <script>
+    // ✅ Function to save cookie
+    function saveName() {
+      const name = document.getElementById("nameInput").value.trim();
+
+      if (!name) {
+        alert("Enter name first");
+        return;
+      }
+
+      // Expiry = 1 day
+      const date = new Date();
+      date.setTime(date.getTime() + (24 * 60 * 60 * 1000));
+
+      document.cookie = "username=" + name + "; expires=" + date.toUTCString() + "; path=/";
+
+      showName();
+    }
+
+    // ✅ Function to get cookie value
+    function getCookie(name) {
+      const cookies = document.cookie.split(";");
+
+      for (let cookie of cookies) {
+        cookie = cookie.trim();
+
+        if (cookie.startsWith(name + "=")) {
+          return cookie.substring(name.length + 1);
+        }
+      }
+      return "";
+    }
+
+    // ✅ Show welcome message
+    function showName() {
+      const name = getCookie("username");
+      const message = document.getElementById("message");
+
+      if (name) {
+        message.textContent = "Welcome, " + name;
+      } else {
+        message.textContent = "Enter your name";
+      }
+    }
+
+    // ✅ Delete cookie
+    function clearName() {
+      document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+      showName();
+    }
+
+    // ✅ Run when page loads
+    showName();
+
+  </script>
+
+</body>
+</html>
